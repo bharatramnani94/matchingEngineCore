@@ -47,7 +47,25 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return jsonify("Hello, World!")
+    return jsonify("Hello Python-Matching-Engine!")
+
+@app.route('/order/<symbol>/<id>', methods=['GET'])
+def get_order(symbol, id):
+    orderbooks = lme.order_books
+    if not orderbooks:
+        abort(400)
+    orderbook = lme.order_books.get(symbol)
+    if not orderbook:
+        abort(400)
+    for pricepoint, orders in orderbook.bids.items():
+        for order in orders:
+            if order.order_id == int(id):
+                return jsonify(convert_order_to_json(order)), 200
+    for pricepoint, orders in orderbook.asks.items():
+        for order in orders:
+            if order.order_id == int(id):
+                return jsonify(convert_order_to_json(order)), 200
+    abort(404)
 
 @app.route('/order/create', methods=['POST'])
 def create_order():
@@ -90,26 +108,26 @@ if __name__ == '__main__':
 
 
 
-def print_trade(trade):
-    side = "BUY"
-    if trade.trade_side == 2:
-        side = "SELL"
-    print("TRADE: id=" + str(trade.trade_id) + ", side=" + side + ", qty=" + str(trade.trade_qty) + ", price=" + str(trade.trade_price) + ", orderId=" + str(trade.order_id))
+# def print_trade(trade):
+#     side = "BUY"
+#     if trade.trade_side == 2:
+#         side = "SELL"
+#     print("TRADE: id=" + str(trade.trade_id) + ", side=" + side + ", qty=" + str(trade.trade_qty) + ", price=" + str(trade.trade_price) + ", orderId=" + str(trade.order_id))
 
 
-def print_order(order):
-    side = "BUY"
-    if order.side == 2:
-        side = "SELL"
-    print("ORDER: id=" + str(order.order_id) + ", side=" + side + ", qty=" + str(order.leaves_qty) + ", price=" + str(order.price) + ", orderId=" + str(order.order_id))
+# def print_order(order):
+#     side = "BUY"
+#     if order.side == 2:
+#         side = "SELL"
+#     print("ORDER: id=" + str(order.order_id) + ", side=" + side + ", qty=" + str(order.leaves_qty) + ", price=" + str(order.price) + ", orderId=" + str(order.order_id))
 
-def print_orderbook():
-    print('\n')
-    print("BIDS:")
-    for pricepoint, orders in lme.order_books['EUR/USD'].bids.items():
-        print(pricepoint, map(lambda o: o.leaves_qty, orders))
-    print("ASKS:")
-    for pricepoint, orders in lme.order_books['EUR/USD'].asks.items():
-        print(pricepoint, map(lambda o: o.leaves_qty, orders))
-    print('\n')
+# def print_orderbook():
+#     print('\n')
+#     print("BIDS:")
+#     for pricepoint, orders in lme.order_books['EUR/USD'].bids.items():
+#         print(pricepoint, map(lambda o: o.leaves_qty, orders))
+#     print("ASKS:")
+#     for pricepoint, orders in lme.order_books['EUR/USD'].asks.items():
+#         print(pricepoint, map(lambda o: o.leaves_qty, orders))
+#     print('\n')
 

@@ -28,8 +28,8 @@ python app.py
 
 ## ToDo
 
-[ ] Implement Cancel-Order endpoint
-[ ] Implement Get-Order endpoint
+[X] Implement Cancel-Order endpoint
+[X] Implement Get-Order endpoint
 [ ] Make Github Repo and push the code
 [ ] Refactor app (modularize it in different files)
 [ ] Implement persistance (saving ME state to file, booting from it)
