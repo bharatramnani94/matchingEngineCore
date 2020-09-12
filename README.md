@@ -24,3 +24,12 @@ python app.py
 - [Python Core ME API](https://github.com/gavincyi/LightMatchingEngine/blob/develop/lightmatchingengine/lightmatchingengine.pyx)
 - [Python Core ME Repo](https://github.com/gavincyi/LightMatchingEngine)
 - [Python Flask Simple REST Tutorial](https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask)
+
+
+## ToDo
+
+[ ] Implement Cancel-Order endpoint
+[ ] Implement Get-Order endpoint
+[ ] Make Github Repo and push the code
+[ ] Refactor app (modularize it in different files)
+[ ] Implement persistance (saving ME state to file, booting from it)
