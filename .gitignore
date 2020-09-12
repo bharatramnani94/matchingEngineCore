@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# State file (for backup and restoring of ME state)
+state.json
