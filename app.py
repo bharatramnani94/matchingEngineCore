@@ -62,6 +62,18 @@ def create_order():
     order, trades = lme.add_order(symbol, price, quantity, side)
     return jsonify({'order': convert_order_to_json(order), 'trades': convert_trades_to_json(trades)}), 201
 
+@app.route('/order/cancel', methods=['POST'])
+def cancel_order():
+    if not request.json:
+        abort(400)
+    symbol = request.json['symbol']
+    orderId = int(request.json['orderId'])
+    order = lme.cancel_order(orderId, symbol)
+    if order is not None:
+        return jsonify(convert_order_to_json(order)), 200
+    else:
+        abort(400)
+
 @app.route('/orderbook/<symbol>', methods=['GET'])
 def get_orderbook(symbol):
     orderbooks = lme.order_books
