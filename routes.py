@@ -1,7 +1,6 @@
-from flask import Flask, Blueprint, jsonify, request, abort
-from lightmatchingengine.lightmatchingengine import LightMatchingEngine, Side, OrderBook
+from flask import Blueprint, jsonify, request, abort
+from lightmatchingengine.lightmatchingengine import Side
 from utility import convert_order_to_json, get_empty_orderbook_json, convert_trades_to_json, convert_orderbook_to_json
-import persistance
 from engine import engine
 
 route_defs = Blueprint('route_defs', __name__)
@@ -65,6 +64,7 @@ def get_orderbook(symbol):
 
 @route_defs.route('/admin/backup', methods=['GET'])
 def backup_state():
-    result = persistance.write()
+    import persistance
+    result = persistance.write(engine)
     return jsonify(result), 200
 
