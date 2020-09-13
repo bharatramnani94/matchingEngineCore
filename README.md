@@ -32,4 +32,4 @@ python app.py
 - [X] Implement Get-Order endpoint
 - [X] Make Github Repo and push the code
 - [X] Refactor app (modularize it in different files)
-- [ ] Implement persistance (saving ME state to file, booting from it)
+- [X] Implement persistance (saving ME state to file, booting from it)
